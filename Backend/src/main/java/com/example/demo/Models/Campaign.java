@@ -1,17 +1,13 @@
 package com.example.demo.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "campaign")
@@ -31,27 +27,37 @@ public class Campaign {
     private Long id;
 
     @NotNull
+    @Column(nullable = false)
     private String name;
 
     @NotNull
+    @Column(nullable = false)
     private String keywords;
 
     @NotNull
     @Min(0)
+    @Column(nullable = false)
+    @Check(constraints = "bid_amount >= 0")
     private Double bidAmount;
 
     @NotNull
     @Min(0)
+    @Column(nullable = false)
+    @Check(constraints = "campaign_fund >= 0")
     private Double campaignFund;
 
     @NotNull
+    @Column(nullable = false)
     private Boolean status;
 
     @NotNull
+    @Column(nullable = false)
     private String town;
 
     @NotNull
     @Min(0)
+    @Column(nullable = false)
+    @Check(constraints = "radius >= 0")
     private Integer radius;
 
     public Campaign(String name, String keywords, Double bidAmount, Double campaignFund, Boolean status, String town, Integer radius) {

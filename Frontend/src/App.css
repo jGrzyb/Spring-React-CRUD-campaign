@@ -1,0 +1,6 @@
+nav{
+    display: flex;
+}
+button{
+    flex: 1;
+}

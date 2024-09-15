@@ -16,20 +16,20 @@ public class CampaignConfig {
         return args -> {
             Campaign camp1 = new Campaign(
                     "camp1",
-                    "",
+                    "key1, key2",
                     0.0,
                     0.0,
                     false,
-                    "",
+                    "Cracow",
                     0
             );
             Campaign camp2 = new Campaign(
                     "camp2",
-                    "",
+                    "key2, key3",
                     0.0,
                     0.0,
                     false,
-                    "",
+                    "Warsaw",
                     0
             );
             repository.saveAll(
