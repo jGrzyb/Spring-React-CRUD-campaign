@@ -14,25 +14,25 @@ function App() {
     });
 
     useEffect(() => {
-        axios.get('/api/campaigns')
+        axios.get('http://localhost:8080/api/campaigns')
             .then(response => setCampaigns(response.data))
             .catch(error => console.error(error));
     }, []);
 
     const addCampaign = () => {
-        axios.post('/api/campaigns', newCampaign)
+        axios.post('http://localhost:8080/api/campaigns', newCampaign)
             .then(response => setCampaigns([...campaigns, response.data]))
             .catch(error => console.error(error));
     };
 
     const updateCampaign = (id, updatedCampaign) => {
-        axios.put(`/api/campaigns/${id}`, updatedCampaign)
+        axios.put(`http://localhost:8080/api/campaigns/${id}`, updatedCampaign)
             .then(response => setCampaigns(campaigns.map(campaign => campaign.id === id ? response.data : campaign)))
             .catch(error => console.error(error));
     };
 
     const deleteCampaign = (id) => {
-        axios.delete(`/api/campaigns/${id}`)
+        axios.delete(`http://localhost:8080/api/campaigns/${id}`)
             .then(() => setCampaigns(campaigns.filter(campaign => campaign.id !== id)))
             .catch(error => console.error(error));
     };

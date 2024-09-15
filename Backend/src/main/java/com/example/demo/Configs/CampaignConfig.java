@@ -24,7 +24,7 @@ public class CampaignConfig {
                     0
             );
             Campaign camp2 = new Campaign(
-                    "camp1",
+                    "camp2",
                     "",
                     0.0,
                     0.0,
