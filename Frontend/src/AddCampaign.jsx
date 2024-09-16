@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AddCampaign.css';
 
 function AddCampaign() {
+    const [seller, setSeller] = useState({
+        name: '',
+        money: 0
+    });
     const [newCampaign, setNewCampaign] = useState({
         name: '',
         keywords: '',
@@ -14,6 +18,26 @@ function AddCampaign() {
         radius: 0
     });
     const navigate = useNavigate();
+    const [diff, setDiff] = useState(0);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/sellers/1`)
+            .then(response => {
+                console.log(response.data);
+                setSeller(response.data);
+                setNewCampaign(prevCampaign => ({
+                    ...prevCampaign,
+                    campaignFund: response.data.money || 0
+                }));
+            })
+            .catch(error => console.error(error));
+    }, []);
+
+    const updateSeller = (cost) => {
+        axios.put(`http://localhost:8080/api/sellers/1`, cost)
+            .then(() => navigate('/'))
+            .catch(error => console.error(error));
+    };
 
     const validateForm = () => {
         const { name, keywords, bidAmount, campaignFund, town, radius } = newCampaign;
@@ -30,8 +54,9 @@ function AddCampaign() {
     const addCampaign = () => {
         if (validateForm()) {
             axios.post('http://localhost:8080/api/campaigns', newCampaign)
-                .then(() => navigate('/'))
-                .catch(error => console.error(error));
+                .then(() => {
+                    return updateSeller({name: seller.name, money: seller.money - newCampaign.campaignFund});
+        }).catch(error => console.error(error));
         } else {
             alert('Please fill in all fields correctly.');
         }
@@ -39,6 +64,7 @@ function AddCampaign() {
 
     return (
         <div>
+            <p>Emerald account: {diff}</p>
             <h1>Add Campaign</h1>
             <input 
                 type="text" 
@@ -73,7 +99,10 @@ function AddCampaign() {
                 type="number" 
                 placeholder="Campaign Fund" 
                 value={newCampaign.campaignFund} 
-                onChange={e => setNewCampaign({ ...newCampaign, campaignFund: e.target.value })} 
+                onChange={e => {
+                    setNewCampaign({ ...newCampaign, campaignFund: e.target.value });
+                    setDiff(seller.money - e.target.value);
+                }} 
                 required 
             /><br/>
             <input 
