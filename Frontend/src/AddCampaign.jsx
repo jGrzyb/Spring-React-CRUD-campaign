@@ -56,7 +56,8 @@ function AddCampaign() {
             axios.post('http://localhost:8080/api/campaigns', newCampaign)
                 .then(() => {
                     return updateSeller({name: seller.name, money: seller.money - newCampaign.campaignFund});
-        }).catch(error => console.error(error));
+                })
+                .catch(error => console.error(error));
         } else {
             alert('Please fill in all fields correctly.');
         }
