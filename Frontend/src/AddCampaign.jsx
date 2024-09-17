@@ -41,7 +41,9 @@ function AddCampaign() {
         })
         .catch((error) => console.error(error));
     } else {
-      alert("Please fill in all fields correctly.");
+      alert(
+        "Please fill in all the fields correctly. Text fields and dropdowns cannot be empty. Numbers cannot be equal or less than 0."
+      );
     }
   };
 

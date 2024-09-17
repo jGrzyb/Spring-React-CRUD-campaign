@@ -40,7 +40,9 @@ function EditCampaign() {
         })
         .catch((error) => console.error("Error updating campaign:", error));
     } else {
-      alert("Please fill in all the fields correctly.");
+      alert(
+        "Please fill in all the fields correctly. Text fields and dropdowns cannot be empty. Numbers cannot be equal or less than 0."
+      );
     }
   };
 
