@@ -12,4 +12,4 @@ Repository contains backend and frontend server.
 
 ## To run whole application you should:
 1. Run BackendApplication class from Backend folder
-2. Run "npm run dev" from Frontend folder
+2. Run "npm install" and "npm run dev" from Frontend folder
